@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Attendance  - student_check{% endblock %}
+
+{% block page_content %}
+<div class="page-header" style="text-align:center">
+    <h1>签到情况</h1>
+    <br>
+    <p>课程名称：{{ course['course_name'] }}</p>
+    <p>课程号：{{ course['course_id'] }}</p>
+    <p>签到任务ID：{{ task['task_id'] }}</p>
+    <p>签到开始时间：{{ task['start_time'] }}</p>
+    <p>签到结束时间：{{ task['end_time'] }}</p>
+    <br>
+    <p>签到率：
+        {% if (check_in_stu_list | length) + (uncheck_in_stu_list | length) == 0 %}
+        0%</p>
+        {% else %}
+        {{ (check_in_stu_list | length) / ((check_in_stu_list | length) + (uncheck_in_stu_list | length)) * 100
+        }}%</p>
+        {% endif %}
+
+</div>
+<div>
+    <table class="table table-hover">
+        <caption>已签到学生数量：{{ check_in_stu_list | length }}</caption>
+        <thead>
+        <tr>
+            <th>学生ID</th>
+            <th>学生姓名</th>
+            <th>签到时间</th>
+        </tr>
+        </thead>
+        <tbody align="left">
+        {% for student in check_in_stu_list %}
+        <tr>
+            <td>{{ student['stu_id'] }}</td>
+            <td>{{ student['stu_name'] }}</td>
+            <td>{{ student['time'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <table class="table table-hover">
+        <caption>未签到学生数量：{{ uncheck_in_stu_list | length }}</caption>
+        <thead>
+        <tr>
+            <th>学号</th>
+            <th>学生姓名</th>
+        </tr>
+        </thead>
+        <tbody align="left">
+        {% for student in uncheck_in_stu_list %}
+        <tr>
+            <td>{{ student['stu_id'] }}</td>
+            <td>{{ student['stu_name'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

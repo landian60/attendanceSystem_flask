@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Attendance  - Login{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>学生个人选课</h1>
+</div>
+<div>
+    <table class="table table-hover">
+        <caption>选课</caption>
+        <thead>
+        <tr>
+            <th>课程号</th>
+            <th>课程名</th>
+            <th>教师名</th>
+            <th>选课</th>
+        </tr>
+        </thead>
+        <tbody align="left">
+        {% for course in course_list %}
+        <tr>
+            <td>{{ course['course_id'] }}</td>
+            <td>{{ course['course_name'] }}</td>
+            <td>{{ course['teacher_id'] }}</td>
+            <td>
+                <button type="button" onclick="join_course({{ course['course_id'] }})"
+                        class="btn btn-default btn-xs">加入课程
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript">
+        function join_course(course_id) {
+            jQuery.ajax({
+                url: '/student/join_course',
+                dataType: "json",
+                data: JSON.stringify({
+                    "course_id": course_id,
+                }),
+                cache: false,
+                contentType: "application/json",
+                processData: false,
+                method: 'POST',
+                type: 'POST', // For jQuery < 1.9
+                success: function (data) {
+                    if (data.result == 'ok') {
+                        window.location.reload()
+                    }
+                }
+            });
+        }
+
+</script>
+{% endblock %}

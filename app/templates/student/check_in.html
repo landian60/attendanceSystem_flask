@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Attendance {{ user_id }} {% endblock %}
+
+{% block page_content %}
+
+<div class="container" style="text-align:center">
+    <h1>学生签到</h1>
+    <br>
+    <p>课程名称：{{ course_name }} </p>
+    <p>课程号：{{ course_id }}</p>
+    {% if task %}
+    <p>签到任务ID：{{ task['task_id'] }}</p>
+    <p>签到开始时间：{{ task['start_time'] }}</p>
+    <p>签到结束时间：{{ task['end_time'] }}</p>
+    <br>
+    {% if task_value == False %}
+    {{ wtf.quick_form(form) }}
+    {% else %}
+    <button type="button" class="btn btn-default" disabled="disabled">已签到</button>
+    {% endif %}
+
+</div>
+{% else %}
+<button type="button" class="btn btn-default" disabled="disabled">确认签到</button>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript">
+        $("#task_id").attr("value", {{task['task_id']}});
+        $("#task_id").attr("style", "display:none");
+        $("#submit").attr("class", "btn btn-success");
+        $(".control-label").attr("style", "display:none");
+
+</script>
+{% endblock %}

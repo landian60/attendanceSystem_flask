@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Attendance {% endblock %}
+{% block page_content %}
+<div class="container" style="text-align:center">
+    <h1>个人主页</h1>
+    <p>工号：{{ teacher['teacher_id'] }}</p>
+    <p>姓名：{{ teacher['teacher_name'] }}</p>
+    <br>
+    <a href="{{ url_for('teacher.create_course') }}" style="color:#000000;">
+        <button type="button" class="btn btn-default">创建课程</button>
+    </a>
+    <table class="table table-hover">
+        <caption>您的课程</caption>
+        <thead>
+        <tr>
+            <th>课程号</th>
+            <th>课程名</th>
+            <th>发布签到</th>
+            <th>签到任务</th>
+            <th>选课名单</th>
+        </tr>
+        </thead>
+        <tbody align="left">
+        {% for course in course_list %}
+        <tr>
+            <td>{{ course['course_id'] }}</td>
+            <td>{{ course['course_name'] }}</td>
+            <td><a style="color:#000000;"
+                   href="{{ url_for('teacher.create_check_in',course_id=course['course_id']) }}">
+                <button type="button" class="btn btn-default btn-xs">发布签到</button>
+            </a></td>
+            <td><a style="color:#000000;"
+                   href="{{ url_for('teacher.list_check_in',course_id=course['course_id']) }}">
+                <button type="button" class="btn btn-default btn-xs">签到任务</button>
+            </a></td>
+            <td><a style="color:#000000;"
+                   href="{{ url_for('teacher.list_student',course_id=course['course_id']) }}">
+                <button type="button" class="btn btn-default btn-xs">选课名单</button>
+            </a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

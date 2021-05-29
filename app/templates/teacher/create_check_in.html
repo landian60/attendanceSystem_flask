@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Attendance  - create_check_in{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>发布签到任务</h1>
+    <p>课程名：{{ course['course_name'] }}</p>
+    <p>课程号：{{ course['course_id'] }}</p>
+</div>
+<div class="col-md-4">
+    {{ wtf.quick_form(form) }}
+    <br>
+</div>
+
+{% endblock  %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript">
+
+        $('#start_time').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:00',
+            locale: moment.locale('zh-cn'),
+            defaultDate: "2020-5-15 8:00:00"
+        });
+        $('#end_time').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:00',
+            locale: moment.locale('zh-cn'),
+            defaultDate: "2020-05-15 9:00:00"
+        });
+
+</script>
+{% endblock %}

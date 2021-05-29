@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Attendance  - code{% endblock %}
+
+{% block page_content %}
+    <div style="text-align:center">
+        <h3>扫描二维码进行签到</h3>
+        <img style="width:20em;" src="{{ img_stream }}">
+        <br><br><br>
+        <p>课程名：{{ course.course_name }}</p>
+        <p>课程号：{{ course.course_id }}</p>
+    </div>
+{% endblock  %}

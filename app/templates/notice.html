@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}公告 {% endblock %}
+{% block page_content %}
+
+<marquee behavior="alternate" direction="right" align="absmiddle">
+    <ul>
+    {% for m in message %}
+    <li style="font-size:20px">时间：{{ m.time }}<br>公告内容：{{ m.body }}</li>
+        <br>
+    {% endfor %}
+</ul>
+    </marquee>
+
+
+
+{% endblock %}
